@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 
 		if (arrlen != 2 && strcmp(arr[0], "push") == 0)
 		{
-			fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, arr[0]);
+			fprintf(stderr, "L<%d>: usage: push integer\n", line_number);
 			if (top)
 				free_stack(&top);
 			return (EXIT_FAILURE);
