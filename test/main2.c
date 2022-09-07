@@ -2,11 +2,16 @@
 #include <string.h>
 
 
-
 int main(void)
 {
-	int arr[2];
+	int arr[2], num;
+	char s[] = "Home ", *ptr, *pt;
 
-	printf("%d\n", arr[0]);
+	ptr = strtok(s, " ");
+	pt = strtok(NULL, " ");
+	num = atoi(pt);
+
+
+	printf("%s\n%s\n", ptr, pt);
 	return (0);
 }

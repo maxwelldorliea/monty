@@ -11,19 +11,10 @@
  * Return: Length of the array
  */
 
-int tokenize(char *buf, char **arr)
+void tokenize(char *buf, char **arr)
 {
-	char *ptr;
-	int i = 0;
-
-	ptr = strtok(buf, " \t\r\n");
-	while (ptr)
-	{
-		arr[i++] = ptr;
-		ptr = strtok(NULL, " \t\r\n");
-	}
-
-	return (i);
+	arr[0] = strtok(buf, " \t\r\n");
+	arr[1] = strtok(NULL, " \t\r\n");
 }
 
 /**
@@ -49,21 +40,20 @@ int istherealpha(char *s)
  * @top: top of the stack
  * @arr: array of tokenize values
  * @line: current line of execution
- * @arrlen: Length of the array
  * Return: Nothing when found, Terminate the program when no function is found
  */
 
-void execute_func(stack_t **top, char **arr, int line, int arrlen)
+void execute_func(stack_t **top, char **arr, int line)
 {
 	int num;
 	void (*func)(stack_t **top, unsigned int number);
 
-	if (arrlen == 1)
-		num = 0;
-	else
+	if (arr[1] != NULL)
 		num = atoi(arr[1]);
+	else
+		num = 0;
 
-	if (istherealpha(arr[1]) && strcmp(arr[0], "push") == 0)
+	if (strcmp(arr[0], "push") == 0 && (!arr[1] || istherealpha(arr[1])))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line);
 		if (top)
@@ -94,7 +84,7 @@ void execute_func(stack_t **top, char **arr, int line, int arrlen)
 
 int main(int argc, char **argv)
 {
-	int arrlen, line_number = 0;
+	int line_number = 0;
 	stack_t *top = NULL;
 	FILE *fp;
 	char buf[1024], *arr[100];
@@ -114,16 +104,11 @@ int main(int argc, char **argv)
 	while (fgets(buf, buflen, fp) != NULL)
 	{
 		line_number++;
-		arrlen = tokenize(buf, arr);
 
-		if (arrlen == 1 && strcmp(arr[0], "push") == 0)
-		{
-			fprintf(stderr, "L%d: usage: push integer\n", line_number);
-			if (top)
-				free_stack(&top);
-			return (EXIT_FAILURE);
-		}
-		execute_func(&top, arr, line_number, arrlen);
+		if (strcmp(buf, "\n") == 0)
+			continue;
+		tokenize(buf, arr);
+		execute_func(&top, arr, line_number);
 	}
 	fclose(fp);
 	if (top)
