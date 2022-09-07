@@ -3,8 +3,10 @@ push 2
 push 3
 pall
 pop
+nop
 pall
 pop
 pall
+nop
 pop
 pall

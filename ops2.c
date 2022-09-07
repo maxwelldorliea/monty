@@ -51,3 +51,17 @@ void add(stack_t **top, unsigned int line_number)
 	free(*top);
 	*top = next;
 }
+
+
+/**
+ * nop - perform no operation
+ * @top: top of the stack
+ * @line_number: current line of execution
+ * Return: Nothing
+ */
+
+void nop(stack_t **top, unsigned int line_number)
+{
+	(void)line_number;
+	(void)top;
+}
