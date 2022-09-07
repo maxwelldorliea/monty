@@ -21,8 +21,8 @@ void push(stack_t **top, unsigned int line_number)
 	if (!node)
 	{
 		free(node);
-		node = NULL;
-		return;
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
 	}
 
 	node->n = line_number;
