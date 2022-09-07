@@ -20,9 +20,10 @@ void (*get_func(char *s))(stack_t **top, unsigned int line_number)
 		{"nop", nop},
 		{"sub", sub},
 		{"div", divt},
+		{"mul", mul},
 	};
 
-	const int LEN = 9;
+	const int LEN = 10;
 	int i = 0;
 
 	while (i < LEN)
