@@ -19,9 +19,10 @@ void (*get_func(char *s))(stack_t **top, unsigned int line_number)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
+		{"div", divt},
 	};
 
-	const int LEN = 8;
+	const int LEN = 9;
 	int i = 0;
 
 	while (i < LEN)

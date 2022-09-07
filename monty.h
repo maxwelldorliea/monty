@@ -48,6 +48,7 @@ void swap(stack_t **top, unsigned int line_number);
 void add(stack_t **top, unsigned int line_number);
 void nop(stack_t **top, unsigned int line_number);
 void sub(stack_t **top, unsigned int line_number);
+void divt(stack_t **top, unsigned int line_number);
 void (*get_func(char *s))(stack_t **top, unsigned int line_number);
 
 #endif
