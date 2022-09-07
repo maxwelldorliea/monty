@@ -74,7 +74,7 @@ void execute_func(stack_t **top, char **arr, int line, int arrlen)
 	func = get_func(arr[0]);
 	if (func)
 		func(top, num);
-	else
+	else if (!func && strcmp(arr[0], "\n") != 0)
 	{
 
 		fprintf(stderr, "L%d: unknown instruction %s\n", line, arr[0]);
