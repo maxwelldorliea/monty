@@ -97,5 +97,7 @@ int main(int argc, char **argv)
 		execute_func(&top, num, line_number, arr[0]);
 	}
 	fclose(fp);
+	if (top)
+		free_stack(&top);
 	return (0);
 }
