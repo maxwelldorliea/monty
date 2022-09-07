@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	int arrlen, line_number = 0;
 	stack_t *top = NULL;
 	FILE *fp;
-	char buf[1024], *arr[2];
+	char buf[1024], *arr[100];
 	size_t buflen = 1024;
 
 	if (argc != 2)
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 		line_number++;
 		arrlen = tokenize(buf, arr);
 
-		if (arrlen != 2 && strcmp(arr[0], "push") == 0)
+		if (arrlen == 1 && strcmp(arr[0], "push") == 0)
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", line_number);
 			if (top)
