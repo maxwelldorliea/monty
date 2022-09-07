@@ -64,9 +64,15 @@ void execute_func(stack_t **top, char **arr, int line)
 		exit(EXIT_FAILURE);
 	}
 
+	if (strcmp(arr[0], "push") == 0)
+	{
+		push(top, num);
+		return;
+	}
+
 	func = get_func(arr[0]);
 	if (func)
-		func(top, num);
+		func(top, line);
 	else if (!func && strcmp(arr[0], "\n") != 0)
 	{
 

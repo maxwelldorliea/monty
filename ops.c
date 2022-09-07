@@ -90,3 +90,22 @@ void free_stack(stack_t **top)
 	if (*top != NULL)
 		*top = NULL;
 }
+
+/**
+ * pint - prints the first node value of the stack
+ * @top: top of the stack
+ * @line_number: current line of execution
+ * Return: Nothing
+ */
+
+void pint(stack_t **top, unsigned int line_number)
+{
+
+	if (!top || !(*top))
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	printf("%d\n", (*top)->n);
+}
