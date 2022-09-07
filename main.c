@@ -16,36 +16,68 @@ int tokenize(char *buf, char **arr)
 	char *ptr;
 	int i = 0;
 
-	ptr = strtok(buf, " \n");
+	ptr = strtok(buf, " \t\r\n");
 	while (ptr)
 	{
 		arr[i++] = ptr;
-		ptr = strtok(NULL, " \n");
+		ptr = strtok(NULL, " \t\r\n");
 	}
 
 	return (i);
 }
 
 /**
+ * istherealpha - check if there is an alphabet in a string
+ * @s: string to check
+ * Return: 1 if True or ) if False
+ */
+
+int istherealpha(char *s)
+{
+	while (*s)
+	{
+		if ((*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z'))
+			return (1);
+		s++;
+	}
+
+	return (0);
+}
+
+/**
  * execute_func - executes the rightful monty function
  * @top: top of the stack
- * @num: value to be passed to the selected function
+ * @arr: array of tokenize values
  * @line: current line of execution
- * @funcname: name of monty function to search for
+ * @arrlen: Length of the array
  * Return: Nothing when found, Terminate the program when no function is found
  */
 
-void execute_func(stack_t **top, int num, int line, char *funcname)
+void execute_func(stack_t **top, char **arr, int line, int arrlen)
 {
-	void (*func)(stack_t **top, unsigned int line_number);
+	int num;
+	void (*func)(stack_t **top, unsigned int number);
 
-	func = get_func(funcname);
+	if (arrlen == 1)
+		num = 0;
+	else
+		num = atoi(arr[1]);
+
+	if (istherealpha(arr[1]) && strcmp(arr[0], "push") == 0)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line);
+		if (top)
+			free_stack(top);
+		exit(EXIT_FAILURE);
+	}
+
+	func = get_func(arr[0]);
 	if (func)
 		func(top, num);
 	else
 	{
 
-		fprintf(stderr, "L%d: unknown instruction %s\n", line, funcname);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, arr[0]);
 		if (*top)
 			free_stack(top);
 		exit(EXIT_FAILURE);
@@ -62,10 +94,10 @@ void execute_func(stack_t **top, int num, int line, char *funcname)
 
 int main(int argc, char **argv)
 {
-	int num, arrlen;
+	int arrlen, line_number = 0;
 	stack_t *top = NULL;
 	FILE *fp;
-	char buf[1024], *arr[2], line_number = 0;
+	char buf[1024], *arr[2];
 	size_t buflen = 1024;
 
 	if (argc != 2)
@@ -91,10 +123,7 @@ int main(int argc, char **argv)
 				free_stack(&top);
 			return (EXIT_FAILURE);
 		}
-		if (arrlen == 1)
-			num = 0;
-		num = atoi(arr[1]);
-		execute_func(&top, num, line_number, arr[0]);
+		execute_func(&top, arr, line_number, arrlen);
 	}
 	fclose(fp);
 	if (top)

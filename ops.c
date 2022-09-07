@@ -65,6 +65,9 @@ void pall(stack_t **top, unsigned int line_number)
 		curr = curr->next;
 	}
 
+	if (*top)
+		free_stack(top);
+
 }
 
 

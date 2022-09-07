@@ -1,5 +1,5 @@
 push 1
-push 2
+		push             2
 push 3
 push 4
 push 5
@@ -9,7 +9,7 @@ push 8
 push 9
 pall
 push 10
-pus 9
-push 50
+push 9
+push 06
 push 70
 pall
