@@ -53,6 +53,9 @@ void execute_func(stack_t **top, char **arr, int line)
 	else
 		num = 0;
 
+	if (!arr[0])
+		return;
+
 	if (strcmp(arr[0], "push") == 0 && (!arr[1] || istherealpha(arr[1])))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line);
@@ -105,7 +108,7 @@ int main(int argc, char **argv)
 	{
 		line_number++;
 
-		if (strcmp(buf, "\n") == 0)
+		if (strcmp(buf, "\n") == 0 || strcmp(buf, "#") == 0)
 			continue;
 		tokenize(buf, arr);
 		execute_func(&top, arr, line_number);
