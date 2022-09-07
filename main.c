@@ -26,6 +26,32 @@ int tokenize(char *buf, char **arr)
 	return (i);
 }
 
+/**
+ * execute_func - executes the rightful monty function
+ * @top: top of the stack
+ * @num: value to be passed to the selected function
+ * @line: current line of execution
+ * @funcname: name of monty function to search for
+ * Return: Nothing when found, Terminate the program when no function is found
+ */
+
+void execute_func(stack_t **top, int num, int line, char *funcname)
+{
+	void (*func)(stack_t **top, unsigned int line_number);
+
+	func = get_func(funcname);
+	if (func)
+		func(top, num);
+	else
+	{
+
+		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line, funcname);
+		if (*top)
+			free_stack(top);
+		exit(EXIT_FAILURE);
+	}
+}
+
 
 /**
  * main - Run the monty interpreter
@@ -38,9 +64,8 @@ int main(int argc, char **argv)
 {
 	int num, arrlen;
 	stack_t *top = NULL;
-	void (*func)(stack_t **top, unsigned int line_number);
 	FILE *fp;
-	char buf[1024], *arr[2], line = 0;
+	char buf[1024], *arr[2], line_number = 0;
 	size_t buflen = 1024;
 
 	if (argc != 2)
@@ -56,12 +81,12 @@ int main(int argc, char **argv)
 	}
 	while (fgets(buf, buflen, fp) != NULL)
 	{
-		line++;
+		line_number++;
 		arrlen = tokenize(buf, arr);
 
 		if (arrlen != 2 && strcmp(arr[0], "push") == 0)
 		{
-			fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line, arr[0]);
+			fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line_number, arr[0]);
 			if (top)
 				free_stack(&top);
 			return (EXIT_FAILURE);
@@ -69,9 +94,7 @@ int main(int argc, char **argv)
 		if (arrlen == 1)
 			num = 0;
 		num = atoi(arr[1]);
-		func = get_func(arr[0]);
-		if (func)
-			func(&top, num);
+		execute_func(&top, num, line_number, arr[0]);
 	}
 	fclose(fp);
 	return (0);

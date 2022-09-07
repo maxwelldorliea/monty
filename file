@@ -9,7 +9,7 @@ push 8
 push 9
 pall
 push 10
-push 9
+pus 9
 push 50
 push 70
 pall
