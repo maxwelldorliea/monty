@@ -45,7 +45,7 @@ void execute_func(stack_t **top, int num, int line, char *funcname)
 	else
 	{
 
-		fprintf(stderr, "L<%d>: unknown instruction <%s>\n", line, funcname);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line, funcname);
 		if (*top)
 			free_stack(top);
 		exit(EXIT_FAILURE);
