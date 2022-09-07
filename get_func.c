@@ -15,9 +15,10 @@ void (*get_func(char *s))(stack_t **top, unsigned int line_number)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"swap", swap},
 	};
 
-	const int LEN = 4;
+	const int LEN = 5;
 	int i = 0;
 
 	while (i < LEN)
