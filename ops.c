@@ -109,3 +109,25 @@ void pint(stack_t **top, unsigned int line_number)
 
 	printf("%d\n", (*top)->n);
 }
+
+/**
+ * pop - remove the first node of the stack
+ * @top: top of the stack
+ * @line_number: current line of execution
+ * Return: Nothing
+ */
+
+void pop(stack_t **top, unsigned int line_number)
+{
+	stack_t *next;
+
+	if (!top || !(*top))
+	{
+		fprintf(stderr, "L%d: can't pop, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	next = (*top)->next;
+	free(*top);
+	*top = next;
+}
