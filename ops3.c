@@ -82,7 +82,7 @@ void pchar(stack_t **top, unsigned int line_number)
 
 	val = (*top)->n;
 
-	if (val >= 0 && val <= 255)
+	if (val >= 0 && val <= 127)
 	{
 		putchar(val);
 		putchar('\n');
