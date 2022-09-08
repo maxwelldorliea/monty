@@ -1,4 +1,6 @@
 #include "monty.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 
 
@@ -57,4 +59,37 @@ void mod(stack_t **top, unsigned int line_number)
 	next->n = next->n % (*top)->n;
 	free(*top);
 	*top = next;
+}
+
+
+/**
+ * pchar - prints the value at the top of stack as char
+ * @top: top of the stack
+ * @line_number: current line of execution
+ * Return: Nothing
+ */
+
+
+void pchar(stack_t **top, unsigned int line_number)
+{
+	int val;
+
+	if (!top || !(*top))
+	{
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+
+	val = (*top)->n;
+
+	if (val >= 0 && val <= 255)
+	{
+		putchar(val);
+		putchar('\n');
+	}
+	else
+	{
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 }
