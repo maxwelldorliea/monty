@@ -131,3 +131,35 @@ void pstr(stack_t **top, unsigned int line_number)
 
 	putchar('\n');
 }
+
+
+/**
+ * rotl - prints all nodes in the stack, print the fisrt node as the last
+ * @top: top of the stack
+ * @line_number: current line of execution
+ * Return: Nothing
+ */
+
+
+void rotl(stack_t **top, unsigned int line_number)
+{
+	stack_t *curr;
+
+	(void)line_number;
+
+	if (!top || !(*top))
+	{
+		return;
+	}
+
+	curr = (*top)->next;
+
+	while (curr)
+	{
+		printf("%d\n", curr->n);
+		curr = curr->next;
+	}
+
+	printf("%d\n", (*top)->n);
+	*top = curr;
+}
