@@ -161,5 +161,4 @@ void rotl(stack_t **top, unsigned int line_number)
 	}
 
 	printf("%d\n", (*top)->n);
-	*top = curr;
 }
