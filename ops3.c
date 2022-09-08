@@ -93,3 +93,41 @@ void pchar(stack_t **top, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 }
+
+
+/**
+ * pstr - prints the ascii value of all nodes in the stack
+ * @top: top of the stack
+ * @line_number: current line of execution
+ * Return: Nothing
+ */
+
+
+void pstr(stack_t **top, unsigned int line_number)
+{
+	int val;
+	stack_t *curr;
+
+	(void)line_number;
+
+	if (!top || !(*top))
+	{
+		putchar('\n');
+		return;
+	}
+
+	curr = *top;
+
+	while (curr && curr->n)
+	{
+		val = curr->n;
+
+		if (val >= 0 && val <= 127)
+			putchar(val);
+		else
+			break;
+		curr = curr->next;
+	}
+
+	putchar('\n');
+}

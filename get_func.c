@@ -23,9 +23,10 @@ void (*get_func(char *s))(stack_t **top, unsigned int line_number)
 		{"mul", mul},
 		{"mod", mod},
 		{"pchar", pchar},
+		{"pstr", pstr},
 	};
 
-	const int LEN = 12;
+	const int LEN = 13;
 	int i = 0;
 
 	while (i < LEN)
