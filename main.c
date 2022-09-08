@@ -114,7 +114,7 @@ int main(int argc, char **argv)
 	{
 		line_number++;
 
-		if (strcmp(buf, "\n") == 0 || strcmp(buf, "#") == 0)
+		if (strcmp(buf, "\n") == 0 || buf[0] == '#')
 			continue;
 		tokenize(buf, arr);
 		execute_func(&top, arr, line_number);
