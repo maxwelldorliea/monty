@@ -117,12 +117,12 @@ int main(int argc, char **argv)
 
 		if (strcmp(buf, "\n") == 0)
 			continue;
-		if (strcmp(buf, "queue\n") == 0)
+		if (strncmp(buf, "queue", 5) == 0)
 		{
 			mode = 0;
 			continue;
 		}
-		if (strcmp(buf, "stack\n") == 0)
+		if (strncmp(buf, "stack", 5) == 0)
 		{
 			mode = 1;
 			continue;
