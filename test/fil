@@ -1,12 +1,8 @@
+queue
 push 1
 push 2
 push 3
 pall
-pop
-nop
-pall
-pop
-pall
-nop
-pop
+stack
+push 10
 pall
