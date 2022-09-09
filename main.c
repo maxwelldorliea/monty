@@ -38,12 +38,13 @@ int istherealpha(char *s)
 /**
  * execute_func - executes the rightful monty function
  * @top: top of the stack
+ * @mode: mode of execution
  * @arr: array of tokenize values
  * @line: current line of execution
  * Return: Nothing when found, Terminate the program when no function is found
  */
 
-void execute_func(stack_t **top, char **arr, int line)
+void execute_func(stack_t **top, char **arr, int line, int mode)
 {
 	int num;
 	void (*func)(stack_t **top, unsigned int number);
@@ -66,7 +67,7 @@ void execute_func(stack_t **top, char **arr, int line)
 
 	if (strcmp(arr[0], "push") == 0)
 	{
-		push(top, num);
+		push(top, num, mode);
 		return;
 	}
 
@@ -93,7 +94,7 @@ void execute_func(stack_t **top, char **arr, int line)
 
 int main(int argc, char **argv)
 {
-	int line_number = 0;
+	int line_number = 0, mode = 1;
 	stack_t *top = NULL;
 	FILE *fp;
 	char buf[1024], *arr[100];
@@ -116,8 +117,18 @@ int main(int argc, char **argv)
 
 		if (strcmp(buf, "\n") == 0)
 			continue;
+		if (strcmp(buf, "queue\n") == 0)
+		{
+			mode = 0;
+			continue;
+		}
+		if (strcmp(buf, "stack\n") == 0)
+		{
+			mode = 1;
+			continue;
+		}
 		tokenize(buf, arr);
-		execute_func(&top, arr, line_number);
+		execute_func(&top, arr, line_number, mode);
 	}
 	fclose(fp);
 	if (top)

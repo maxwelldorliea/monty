@@ -11,7 +11,6 @@
 void (*get_func(char *s))(stack_t **top, unsigned int line_number)
 {
 	instruction_t inst[] = {
-		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
@@ -27,7 +26,7 @@ void (*get_func(char *s))(stack_t **top, unsigned int line_number)
 		{"rotl", rotl},
 	};
 
-	const int LEN = 14;
+	const int LEN = 13;
 	int i = 0;
 
 	while (i < LEN)

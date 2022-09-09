@@ -5,13 +5,14 @@
 /**
  * push - add a node(value) at the top of the stack
  * @top: current top of the stack
- * @line_number: the current line in the monty file
+ * @val: the current line in the monty file
+ * @mode: mode of execution
  * Return: Nothing
  */
 
-void push(stack_t **top, unsigned int line_number)
+void push(stack_t **top, int val, int mode)
 {
-	stack_t *node;
+	stack_t *node, *curr;
 
 	if (!top)
 		return;
@@ -25,7 +26,7 @@ void push(stack_t **top, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	node->n = line_number;
+	node->n = val;
 	node->next = NULL;
 	node->prev = NULL;
 
@@ -35,8 +36,20 @@ void push(stack_t **top, unsigned int line_number)
 		return;
 	}
 
-	node->next = *top;
-	*top = node;
+	if (mode)
+	{
+		node->next = *top;
+		*top = node;
+	}
+	else
+	{
+		curr = *top;
+		while (curr->next)
+			curr = curr->next;
+		curr->next = node;
+		node->prev = curr;
+	}
+
 }
 
 
