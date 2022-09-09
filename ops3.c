@@ -143,7 +143,7 @@ void pstr(stack_t **top, unsigned int line_number)
 
 void rotl(stack_t **top, unsigned int line_number)
 {
-	stack_t *curr;
+	stack_t *curr, *next, *tmp;
 
 	(void)line_number;
 
@@ -154,11 +154,14 @@ void rotl(stack_t **top, unsigned int line_number)
 
 	curr = (*top)->next;
 
-	while (curr)
-	{
-		printf("%d\n", curr->n);
+	while (curr->next)
 		curr = curr->next;
-	}
 
-	printf("%d\n", (*top)->n);
+	tmp = *top;
+	next = tmp->next;
+	next->prev = NULL;
+	curr->next = tmp;
+	tmp->prev = curr;
+	tmp->next = NULL;
+	*top = next;
 }
