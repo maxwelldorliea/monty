@@ -57,17 +57,6 @@ void execute_func(stack_t **top, char **arr, int line, int mode)
 	if (!arr[0] || arr[0][0] == '#')
 		return;
 
-	if (strcmp(arr[0], "queue") == 0)
-	{
-			mode = 0;
-			return;
-	}
-	if (strcmp(arr[0], "stack") == 0)
-	{
-			mode = 1;
-			return;
-	}
-
 	if (strcmp(arr[0], "push") == 0 && (!arr[1] || istherealpha(arr[1])))
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line);
@@ -128,6 +117,16 @@ int main(int argc, char **argv)
 
 		if (strcmp(buf, "\n") == 0)
 			continue;
+		if (strncmp(buf, "queue ", 6) == 0 || strcmp(buf, "queue\n") == 0)
+		{
+			mode = 0;
+			continue;
+		}
+		if (strncmp(buf, "stack ", 6) == 0 || strcmp(buf, "stack\n") == 0)
+		{
+			mode = 1;
+			continue;
+		}
 		tokenize(buf, arr);
 		execute_func(&top, arr, line_number, mode);
 	}
