@@ -39,11 +39,8 @@ void push(stack_t **top, int val, int mode)
 	if (mode)
 	{
 		tmp = (*top)->next;
-		node->prev = *top;
 		node->next = tmp;
-		if (tmp)
-			tmp->prev = node;
-		(*top)->next = node;
+		*top = node;
 	}
 	else
 	{
