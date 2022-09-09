@@ -12,7 +12,7 @@
 
 void push(stack_t **top, int val, int mode)
 {
-	stack_t *node, *curr, *tmp;
+	stack_t *node, *curr;
 
 	if (!top)
 		return;
@@ -38,8 +38,7 @@ void push(stack_t **top, int val, int mode)
 
 	if (mode)
 	{
-		tmp = (*top)->next;
-		node->next = tmp;
+		node->next = *top;
 		*top = node;
 	}
 	else
