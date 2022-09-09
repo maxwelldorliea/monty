@@ -22,6 +22,7 @@ void push(stack_t **top, int val, int mode)
 	if (!node)
 	{
 		free(node);
+		node = NULL;
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
@@ -47,8 +48,8 @@ void push(stack_t **top, int val, int mode)
 		curr = *top;
 		while (curr->next)
 			curr = curr->next;
-		curr->next = node;
 		node->prev = curr;
+		curr->next = node;
 	}
 
 }
